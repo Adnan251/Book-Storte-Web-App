@@ -44,6 +44,9 @@
             $stmt->execute();
         }
 
+        /**
+        * Add record to database
+        */
         public function add($entity){
             $query = "INSERT INTO ".$this->table_name." (";
             foreach ($entity as $column => $value) {
@@ -63,6 +66,9 @@
             return $entity;
         }
 
+        /**
+        * Update record in database
+        */
         public function update($id, $entity, $id_column = "id"){
             $query = "UPDATE ".$this->table_name." SET ";
             foreach($entity as $name => $value){
