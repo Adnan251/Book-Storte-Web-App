@@ -1,5 +1,5 @@
 <?php
-    require_once __DIR__.'/../Config.class.php';
+    require_once __DIR__.'../Config.class.php';
 
     class BaseDao {
         protected $conn;
@@ -69,7 +69,7 @@
         /**
         * Update record in database
         */
-        public function update($id, $entity, $id_column = "id"){
+        public function update($id, $entity, $id_column = "ID"){
             $query = "UPDATE ".$this->table_name." SET ";
             foreach($entity as $name => $value){
             $query .= $name ."= :". $name. ", ";
@@ -78,7 +78,7 @@
             $query .= " WHERE ${id_column} = :id";
 
             $stmt= $this->conn->prepare($query);
-            $entity['id'] = $id;
+            $entity['ID'] = $id;
             $stmt->execute($entity);
         }
 

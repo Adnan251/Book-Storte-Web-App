@@ -7,7 +7,7 @@
 
         public function __construct()
         {
-            parent::__construct("Books");
+            parent::__construct("books");
         }
 
         public function get_book_by_title($title)

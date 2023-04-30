@@ -5,7 +5,7 @@
     {
         public function __construct()
         {
-            parent::__construct("Users");
+            parent::__construct("users");
         }
 
         public function get_user_by_email($email)

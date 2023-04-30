@@ -6,7 +6,7 @@
     {
         public function __construct()
         {
-            parent::__construct("Inventory");
+            parent::__construct("inventory");
         }
 
         public function get_amount_by_book_id($BooksID)
