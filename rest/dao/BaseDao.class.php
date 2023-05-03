@@ -62,7 +62,7 @@
             
             $stmt= $this->conn->prepare($query);
             $stmt->execute($entity); // sql injection prevention
-            $entity['id'] = $this->conn->lastInsertId();
+            $entity['ID'] = $this->conn->lastInsertId();
             return $entity;
         }
 

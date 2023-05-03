@@ -9,8 +9,8 @@
             parent::__construct(new AuthorDao());
         }
 
-        public function get_author_by_fullname($text)
+        public function get_author_by_name($text)
         {
-            return $this->dao->get_author_by_fullname($text);
+            return $this->dao->get_author_by_name($text);
         }
     }

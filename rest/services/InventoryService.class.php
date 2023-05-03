@@ -13,4 +13,9 @@
         {
             return $this->dao->get_amount_by_book_id($booksId);
         }
+
+        public function update_quantity($quantity, $bookId)
+        {
+            return $this->dao->update_quantity($quantity, $bookId);
+        }
     }

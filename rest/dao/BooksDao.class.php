@@ -13,21 +13,18 @@
         public function get_book_by_title($title)
         {
             $title=strtolower($title);
-            return $this->query_unique("SELECT * FROM Books WHERE LOWER(Title) LIKE '%".$title."%'");
+            return $this->query_unique("SELECT * FROM books WHERE LOWER(Title) LIKE '%".$title."%'");
         }
 
         public function get_book_by_author_id($authorId)
         {
-            return $this->query_unique("SELECT * FROM Books WHERE AuthorsID =: authorId", ["authorId" => $authorId]);
+            return $this->query_unique("SELECT * FROM books WHERE AuthorsID =: authorId", ["authorId" => $authorId]);
         }
 
-        public function get_book_by_price_desc($upDown)
+        public function get_book_by_genre($genre)
         {   
-            if($upDown == 1){
-                return $this->query_unique("SELECT * FROM Books ORDER BY Price DESC");
-            }else{
-                return $this->query_unique("SELECT * FROM Books ORDER BY Price ASC");
-            }
+            $genre = strtolower($genre);
+            return $this->query_unique("SELECT * FROM books WHERE LOWER(Title) LIKE '%".$genre."%'");  
         }
 
     }

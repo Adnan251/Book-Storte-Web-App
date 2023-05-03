@@ -18,8 +18,14 @@
         {
             return $this->dao->get_user_by_username($username);
         }
-        public function add_new_admin($adminId)
+
+        public function update_to_admin($adminId)
         {
-            return $this->dao->add_new_admin($adminId);
+            return $this->dao->update_to_admin($adminId);
+        }
+
+        public function update_to_user($adminId)
+        {
+            return $this->dao->update_to_user($adminId);
         }
     }

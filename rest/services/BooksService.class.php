@@ -19,8 +19,8 @@
             return $this->dao->get_book_by_author_id($authorId);
         }
 
-        public function get_book_by_price_desc($upDown)
+        public function get_book_by_genre($genre)
         {
-            return $this->dao->get_book_by_price_desc($upDown);
+            return $this->dao->get_book_by_price_desc($genre);
         }
     }

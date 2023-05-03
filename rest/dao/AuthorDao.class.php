@@ -10,9 +10,7 @@
 
         public function get_author_by_name($text)
         {
-            $list = explode(" ", $text);
-            $name = strtolower($list[0]);
-            $surname = strtolower($list[1]);
-            return $this->query_unique("SELECT * FROM Authors WHERE LOWER(Name) =: name", ['name' => $name]);
+            $name = strtolower($text);
+            return $this->query_unique("SELECT * FROM authors WHERE LOWER(Name) LIKE '%".$text."%'");
         }
     }

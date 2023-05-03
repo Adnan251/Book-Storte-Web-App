@@ -6,8 +6,6 @@
     use Firebase\JWT\JWT;
     use Firebase\JWT\Key;
 
-    require 'Password.php';
-
     Flight::route('POST /register', function()
     {
         $data = Flight::request()->data->getData(); //get data from post ajax
@@ -39,6 +37,6 @@
         $data = Flight::require()->data->getData();
         $user = Flight::userDao()->get_user_by_username($data['Username']);
 
-        $user['IsAdmin'] = "true";
+        $user['IsAdmin'] = 1;
         Flight::userDao()->update();
     });
