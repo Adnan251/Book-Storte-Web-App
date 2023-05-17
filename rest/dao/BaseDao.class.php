@@ -1,11 +1,17 @@
 <?php
-    require_once __DIR__.'../Config.class.php';
+
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    require_once __DIR__.'./../Config.class.php';
 
     class BaseDao {
         protected $conn;
         private $table_name;
 
-        public function __construct($table_name){
+        public function __construct($table_name)
+        {
             $this->table_name = $table_name;
             $servername = Config::DB_HOST();
             $username = Config::DB_USERNAME();
@@ -19,7 +25,8 @@
         /**
         * Get all records from database
         */
-        public function get_all(){
+        public function get_all()
+        {
             $stmt = $this->conn->prepare("SELECT * FROM ".$this->table_name);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -38,7 +45,8 @@
         /**
         * Delete record from database
         */
-        public function delete($id){
+        public function delete($id)
+        {
             $stmt = $this->conn->prepare("DELETE FROM ".$this->table_name." WHERE id=:id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
@@ -47,7 +55,8 @@
         /**
         * Add record to database
         */
-        public function add($entity){
+        public function add($entity)
+        {
             $query = "INSERT INTO ".$this->table_name." (";
             foreach ($entity as $column => $value) {
             $query .= $column.", ";
@@ -69,7 +78,8 @@
         /**
         * Update record in database
         */
-        public function update($id, $entity, $id_column = "ID"){
+        public function update($id, $entity, $id_column = "ID")
+        {
             $query = "UPDATE ".$this->table_name." SET ";
             foreach($entity as $name => $value){
             $query .= $name ."= :". $name. ", ";
@@ -82,19 +92,22 @@
             $stmt->execute($entity);
         }
 
-        protected function query($query, $params){
+        protected function query($query, $params)
+        {
             $stmt = $this->conn->prepare($query);
             $stmt->execute($params);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        protected function query_unique($query, $params){
+        protected function query_unique($query, $params)
+        {
             $results = $this->query($query, $params);
             return reset($results);
         }
 
         
-        protected function query_specific($query){
+        protected function query_specific($query)
+        {
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

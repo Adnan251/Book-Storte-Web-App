@@ -12,12 +12,7 @@
     {
       return $this->dao->get_all();
     }
-
-    public function get_by_id($id)
-    {
-      return $this->dao->get_by_id($id);
-    }
-
+    
     public function add($entity)
     {
       return $this->dao->add($entity);

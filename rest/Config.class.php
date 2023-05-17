@@ -12,7 +12,7 @@ class Config {
     return Config::get_env("DB_PASSWORD", "SQLAdnan251");
   }
   public static function DB_SCHEME(){
-    return Config::get_env("DB_SCHEME", "mydb");
+    return Config::get_env("DB_SCHEME", "bookstore");
   }
   public static function DB_PORT(){
     return Config::get_env("DB_PORT", "3306");
