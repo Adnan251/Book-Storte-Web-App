@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librarian.com</title>
+    <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/login-register.css">
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body class="bg-white vh-100">
+    <div class="container vh-100">
+        <div class="row align-items-center vh-100">
+            <div class="col-lg-4 mx-auto">
+                <div class="bg-dark p-5 rounded">
+                    <form id="login-form">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="login-register">Email address</label>
+                            <input type="email" name="User_email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Enter email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="login-register">Password</label>
+                            <input type="password" name="password" class="form-control" id="exampleInputPassword1"
+                                placeholder="Password">
+                        </div>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button class="btn btn-warning" type="submit">Log in</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"
+        integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/usersService.js"></script>
+    <script type="text/javascript">
+        usersService.init();
+    </script>
+</body>
+
+</html>

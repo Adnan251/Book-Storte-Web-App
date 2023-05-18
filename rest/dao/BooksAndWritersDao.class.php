@@ -10,7 +10,7 @@
 
         public function get_BaW($bookid)
         {
-            return $this->queryUnique("SELECT * FROM BooksAndWriters WHERE bookid=:bookid",['bookid'=>$bookid]);
+            return $this->query_unique("SELECT * FROM BooksAndWriters WHERE bookid=:bookid",['bookid'=>$bookid]);
         }
 
         public function delete_book($bookid)

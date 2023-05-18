@@ -7,9 +7,9 @@
             parent::__construct("Publishers");   
         }
 
-        public function getByPublisherName($name)
+        public function get_by_publisher_name($name)
         {
-            return $this->queryUnique("SELECT *
+            return $this->query_unique("SELECT *
             FROM Publishers
             WHERE name = :name",['name'=>$name]);
         }
