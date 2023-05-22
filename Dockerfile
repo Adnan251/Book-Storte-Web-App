@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM php:8.1-apache
 WORKDIR /var/www/html
 
 
@@ -18,7 +18,7 @@ RUN if command -v a2enmod >/dev/null 2>&1; then \
 
 
 # Composer install
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:3 /usr/bin/composer /usr/bin/composer
 COPY composer.json composer.json
 RUN composer install --no-dev
 
