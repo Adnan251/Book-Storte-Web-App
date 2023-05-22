@@ -37,8 +37,9 @@ Flight::map('query', function($name, $default_value = ""){
 
 Flight::route('/*', function(){
 
-    $path = Flight::request()->url;
-    if ($path == '/login' || $path == '/docs.json') return TRUE;
+    $path = Flight::request()->url; //check if there is another way to get path
+    //if ($path == '/login' || $path == '/docs.json') return TRUE;
+    return TRUE;
     $headers = getallheaders();
     if (@!$headers['Authorization']){
       Flight::json(["message" => "Authorization is missing"], 403);
