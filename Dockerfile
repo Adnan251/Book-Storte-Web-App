@@ -13,7 +13,7 @@ RUN if command -v a2enmod >/dev/null 2>&1; then \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 COPY composer.json composer.json
-RUN composer install --no-dev
+RUN composer install
 
 EXPOSE 80
 EXPOSE 443
