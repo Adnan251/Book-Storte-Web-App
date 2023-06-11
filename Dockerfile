@@ -16,3 +16,4 @@ RUN composer install
 
 EXPOSE 80
 EXPOSE 443
+EXPOSE 3306
