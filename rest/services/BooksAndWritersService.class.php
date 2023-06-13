@@ -6,7 +6,7 @@
     class BooksAndWritersService extends BaseService {
         public function __construct()
         {
-            parent::__construct(new BooksAndWritersDao);
+            parent::__construct(BooksAndWritersDao::get_instance());
         }
 
         public function delete_book($bookid){

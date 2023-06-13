@@ -6,7 +6,7 @@
 
         public function __construct()
         {
-            parent::__construct(new WritersDao());
+            parent::__construct(WritersDao::get_instance());
         }
 
         public function get_writer_by_names($lastname,$firstname)

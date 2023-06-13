@@ -55,10 +55,9 @@
         $login = Flight::request()->data->getData();
         $user = Flight::usersService()->get_user_by_email($login['User_email']);
         if(isset($user['id'])){
-
-            if($user['password'] == md5($login['password'])){ // md5 hash compatible
+            if($user['password'] == md5($login['password'])){
                 
-                unset($user['password']); //Deletes pw from user object so that it isn't encoded inside of the token
+                unset($user['password']);
                 $jwt = JWT::encode($user, Config::JWT_SECRET(), 'HS256');
                 Flight::json(['token' => $jwt]);
 

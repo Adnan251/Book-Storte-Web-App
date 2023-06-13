@@ -9,9 +9,9 @@
 
         public function __construct()
         {
-            parent::__construct(new PurchaseDao());
-            $this->bookDao = new BooksDao();
-            $this->userDao = new UsersDao();
+            parent::__construct(PurchaseDao::get_instance());
+            $this->bookDao = BooksDao::get_instance();
+            $this->userDao = UsersDao::get_instance();
         }
 
         public function get_purchase_and_book_and_user()
@@ -35,15 +35,15 @@
                 date_default_timezone_set('Europe/Sarajevo');
                 $purchaseDescriptor['Date_Of_Purchase'] = date("Y-m-d");
                 $purchaseDescriptor['Time_Of_Purchase']= date("Y-m-d H:i:s");
-                
+
                 $purchase = $this->dao->add(["BookID"=>$book['id'],
                                             "Time_Of_Purchase"=>$purchaseDescriptor['Time_Of_Purchase'],
                                             "Date_Of_Purchase"=>$purchaseDescriptor['Date_Of_Purchase'],
                                             "Sold_By"=>$user['id']]);
 
                 
-                $newInventory = $book['In_inventory'] - 1;
-                $this->bookDao->update(['In_inventory'=>$newInventory],$book['id']);
+                $book['In_inventory'] = $book['In_inventory'] - 1;
+                $this->bookDao->update($book['id'], $book);
                 return $purchase;                            
             }
         }

@@ -12,9 +12,9 @@
 
         public function __construct()
         {
-            parent::__construct(new OrdersDao());
-            $this->bookDao = new BooksDao();
-            $this->userDao = new UsersDao();
+            parent::__construct(OrdersDao::get_instance());
+            $this->bookDao = BooksDao::get_instance();
+            $this->userDao = UsersDao::get_instance();
         }
 
         public function get_orders_and_users()
@@ -51,16 +51,16 @@
 
             $newInventory = $orderDescriptor['Order_Amount'] + $book['In_inventory'];
             
-            $this->bookDAO->update(['In_inventory'=>$newInventory],$book['id']);
+            $this->bookDao->update($book['id'], ['In_inventory'=>$newInventory]);
             
             return $order;
             }
         }
 
-        public function update_order($orderDescriptor,$id)
+        public function update_order($orderDescriptor, $id)
         {
             $book = $this->bookDao->get_book_by_name($orderDescriptor['book_name']);
-            $user = $this->userDao->get_user_by_name($orderDescriptor['User_Name'],$orderDescriptor['User_Last_Name']);
+            $user = $this->userDao->get_user_by_name($orderDescriptor['User_Name'], $orderDescriptor['User_Last_Name']);
             $oldOrder = $this->dao->get_orders_and_users_by_id($id);
 
             if(!isset($book['id'])){
@@ -74,16 +74,16 @@
                 }
     
                 // If book entry matches the one in the Books table add the order
-                    $order = $this->dao->update(['Order_Amount'=>$orderDescriptor['Order_Amount'],
-                    'book_name'=>$orderDescriptor['book_name'],
-                    'Order_price'=>$calcAmount,
-                    'Date_of_Order'=>$orderDescriptor['Date_of_Order'],
-                    'Date_of_Delivery'=>$orderDescriptor['Date_of_Delivery'],
-                    'ordered_by'=>$user['id']],$id);
-    
-                $newInventory = $orderDescriptor['Order_Amount'] + ($book['In_inventory']-$oldOrder['Order_Amount']);
+                $order = $this->dao->update($id,['Order_Amount'=>$orderDescriptor['Order_Amount'],
+                        'book_name'=>$orderDescriptor['book_name'],
+                        'Order_price'=>$calcAmount,
+                        'Date_of_Order'=>$orderDescriptor['Date_of_Order'],
+                        'Date_of_Delivery'=>$orderDescriptor['Date_of_Delivery'],
+                        'ordered_by'=>$user['id']]);
+
+                $newInventory = $orderDescriptor['Order_Amount'] + $book['In_inventory'];
                 
-                $this->bookDao->update(['In_inventory'=>$newInventory],$book['id']);
+                $this->bookDao->update($book['id'],['In_inventory'=>$newInventory]);
                 
                 return $order;
             }

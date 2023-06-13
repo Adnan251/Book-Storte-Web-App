@@ -3,9 +3,17 @@
     require_once __DIR__.'/BaseDao.class.php';
 
     class WritersDao extends BaseDao {
-        public function __construct()
-        {
-            parent::__construct("Writers");
+         private static $instance = null;
+
+        private function __construct(){
+            parent::__construct("writers");
+        }
+
+        public static function get_instance() {
+            if (!isset(self::$instance)) {
+            self::$instance = new self();
+            }
+            return self::$instance;
         }
 
         public function get_writer_by_names($lastName, $firstName)

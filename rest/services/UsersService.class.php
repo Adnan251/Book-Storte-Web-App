@@ -6,7 +6,7 @@
 
         public function __construct()
         {
-            parent::__construct(new UsersDao());
+            parent::__construct(UsersDao::get_instance());
         }
 
         public function get_user_by_email($email)

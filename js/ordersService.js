@@ -68,7 +68,6 @@ var OrdersService = {
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
               toastr.error(XMLHttpRequest.responseJSON.message);
-              usersService.logout();
             }
         })
     },
@@ -87,6 +86,7 @@ var OrdersService = {
           xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
         },
         success: function(result){
+          console.log(result);
           if(result.error!=null){
             toastr.error(result.error);
           }
@@ -106,13 +106,13 @@ var OrdersService = {
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           toastr.error(XMLHttpRequest.responseJSON.message);
-          usersService.logout();
         }
       })
     },
 
     update: function(id){
         $(".orders-button").attr("disabled",true);
+        console.log($("#orderID").val());
         var orders = {};
         orders.id = $("#orderID").val();
         orders.book_name = $("#editBookName").val();
@@ -154,7 +154,6 @@ var OrdersService = {
           },
           error: function(XMLHttpRequest, textStatus, errorThrown) {
             toastr.error(XMLHttpRequest.responseJSON.message);
-            usersService.logout();
           }
         })
     },
@@ -181,7 +180,6 @@ var OrdersService = {
           },
           error: function(XMLHttpRequest, textStatus, errorThrown) {
             toastr.error(XMLHttpRequest.responseJSON.message);
-            usersService.logout();
           }
         })
       })
@@ -210,7 +208,6 @@ var OrdersService = {
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           toastr.error(XMLHttpRequest.responseJSON.message);
-          usersService.logout();
         }
       })
     }

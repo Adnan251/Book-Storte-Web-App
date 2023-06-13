@@ -3,9 +3,17 @@
     require_once __DIR__.'/BaseDao.class.php';
 
     class BooksAndWritersDao extends BaseDao {
-        public function __construct()
-        {
-            parent::__construct("BooksAndWriters");
+        private static $instance = null;
+
+        private function __construct(){
+            parent::__construct("booksandwriters");
+        }
+
+        public static function get_instance() {
+            if (!isset(self::$instance)) {
+            self::$instance = new self();
+            }
+            return self::$instance;
         }
 
         public function get_BaW($bookid)
@@ -23,7 +31,7 @@
         public function delete_writer($writerid)
         {
             $stm = $this->conn->prepare("DELETE FROM BooksAndWriters WHERE writerid = :writerid");
-            $stm->bindParam(';writerid',$writerid);
+            $stm->bindParam(':writerid',$writerid);
             $stm->execute();
         }
     }
