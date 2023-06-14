@@ -47,31 +47,55 @@
 
         public function add_book_and_writer($bookDescriptor)
         {
-              if($this->find_book($bookDescriptor)['0']['found']!=0){
-                return null;
-              } else {
-                $writer = $this->writerDao->get_writer_by_names($bookDescriptor['Writer_Last_Name'], $bookDescriptor['Writer_Name']);
-                $publisher = $this->publisherDao->get_by_publisher_name($bookDescriptor['name']);
-                // no writer in DB add it
-                if (!isset($writer['id'])){
-                  $writer = $this->writerDao->add(['Writer_Name' => $bookDescriptor['Writer_Name'], 'Writer_Last_Name' => $bookDescriptor['Writer_Last_Name']]);
-                }
-                // no publisher in DB add it
-                if (!isset($publisher['id'])){
-                  $publisher = $this->publisherDao->add(['name' => $bookDescriptor['name']]);
-                }
+          if($this->find_book($bookDescriptor)['0']['found']!=0){
+            return null;
+          } else {
+            $writer = $this->writerDao->get_writer_by_names($bookDescriptor['Writer_Last_Name'], $bookDescriptor['Writer_Name']);
+            $publisher = $this->publisherDao->get_by_publisher_name($bookDescriptor['name']);
+            // no writer in DB add it
+            if (!isset($writer['id'])){
+              $writer = $this->writerDao->add(['Writer_Name' => $bookDescriptor['Writer_Name'], 'Writer_Last_Name' => $bookDescriptor['Writer_Last_Name']]);
+            }
+            // no publisher in DB add it
+            if (!isset($publisher['id'])){
+              $publisher = $this->publisherDao->add(['name' => $bookDescriptor['name']]);
+            }
 
-                $addedBook = $this->dao->add(['Book_Name' => $bookDescriptor['Book_Name'],
-                                'Publisher' => $publisher['id'],
-                                'Year_of_publishing' => $bookDescriptor['Year_of_publishing'],
-                                'Book_price' => $bookDescriptor['Book_price'],
-                                'In_inventory' => $bookDescriptor['In_inventory']]);
+            $addedBook = $this->dao->add(['Book_Name' => $bookDescriptor['Book_Name'],
+                            'Publisher' => $publisher['id'],
+                            'Year_of_publishing' => $bookDescriptor['Year_of_publishing'],
+                            'Book_price' => $bookDescriptor['Book_price'],
+                            'In_inventory' => $bookDescriptor['In_inventory']]);
 
-                $baw = $this->booksAndWritersDao->add(['bookid'=>$addedBook['id'],'writerid'=>$writer['id']]);
-                $book = $this->dao->get_by_id_with_writer_names($addedBook['id']); 
+            $baw = $this->booksAndWritersDao->add(['bookid'=>$addedBook['id'],'writerid'=>$writer['id']]);
+            $book = $this->dao->get_by_id_with_writer_names($addedBook['id']); 
 
-                return $book;
-              }
+            return $book;
+          }
+        }
+
+        public function update_the_books($id){
+          $book = $this->dao->get_by_id($id);
+          if($book == null){
+            return null;
+          } else {
+            if($book['is_available'] < 1){
+              $updated = $this->dao->update($id,['Book_Name' => $book['Book_Name'],
+                                        'Publisher' => $book['Publisher'],
+                                        'Year_of_publishing' => $book['Year_of_publishing'],
+                                        'Book_price' => $book['Book_price'],
+                                        'In_inventory' => $book['In_inventory'],
+                                        'is_available' => 1]);
+            }else{
+              $updated = $this->dao->update($id,['Book_Name' => $book['Book_Name'],
+                                        'Publisher' => $book['Publisher'],
+                                        'Year_of_publishing' => $book['Year_of_publishing'],
+                                        'Book_price' => $book['Book_price'],
+                                        'In_inventory' => $book['In_inventory'],
+                                        'is_available' => 0 ]);
+            }
+            return $updated;
+          }
         }
 
         public function update_book_and_writer($bookDescriptor,$id)

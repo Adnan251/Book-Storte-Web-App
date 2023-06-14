@@ -25,6 +25,21 @@ Flight::route('GET /books/@id',function($id){
  *     @OA\Response(response="200", description="Success")
  * )
  */
+Flight::route('PUT /books/remove/@id', function($id){
+    $book = Flight::booksService()->update_the_books($id);
+    if($book==null){
+        Flight::json(["error"=>"Failed!"]);
+    } else {
+        Flight::json(['message' => 'Updated!']);
+    }
+});
+
+/**
+ * @OA\Get(path="/books/search/{name}", tags={"books"}, summary="Returns a number of books that match the given paramater ", security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(in="path", name="name", description="Searches a book through its name"),
+ *     @OA\Response(response="200", description="Success")
+ * )
+ */
 Flight::route('GET /books/search/@name', function($name){
     Flight::json(Flight::booksService()->search_book($name));
 });

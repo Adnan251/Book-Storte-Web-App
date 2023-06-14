@@ -20,8 +20,8 @@
         {
             $stmt ="SELECT p.id, b.Book_Name, b.Book_price,p.Time_of_Purchase, p.Date_of_Purchase, u.User_Name, u.User_Last_Name
                     FROM purchase p
-                    JOIN Books b ON b.id = p.BookID
-                    JOIN Users u ON p.Sold_By = u.id
+                    JOIN books b ON b.id = p.BookID
+                    JOIN users u ON p.Sold_By = u.id
                     WHERE p.id=:id";
             $result = $this->conn->prepare($stmt);
             $result->execute(['id'=>$id]);

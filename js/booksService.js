@@ -23,10 +23,11 @@ var BookService = {
               <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#searchWriter" style="margin-bottom: 10px"> <i class="bi bi-search"> Search Writer</i></button>
             </div>`;
               for(let i=0;i<data.length;i++){
+                if(data[i].is_available >= 1){
                   html+=`
-                  <div class="col-lg-3 container overflow-hidden" id="view_books">
-                  <div class="card" style="width: 18rem;">
-                      <img class="card-img-top" src="https://www.pngall.com/wp-content/uploads/2018/05/Books-PNG-File.png" alt="Card image cap">
+                  <div class="col-lg-3 container overflow-hidden" id="view_books" style="padding-bottom: 25px;">
+                  <div class="card" style="width: 18rem; background-color:#86DC3D; border-radius: 25px;">
+                      <img class="card-img-top" src="https://www.pngall.com/wp-content/uploads/4/Book-Now-Button-Transparent.png" alt="Card image cap">
                       <div class="card-body">
                           <h4 class="card-title">`+data[i].Writer_Name +` ` +data[i].Writer_Last_Name+`</h4>
                           <h5 class="card-title" id="displayBookName">`+data[i].Book_Name+`</h5>
@@ -35,10 +36,31 @@ var BookService = {
                           <div class="btn-group" role="group">
                               <button type="button" class="btn btn-secondary books-button" onclick="BookService.get(`+data[i].id+`)">View Info</button>
                               <button type="button" class="btn btn-warning books-button" onclick="purchasesService.sell(`+data[i].id+`)">Sell</button>
+                              <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Remove</button>
                           </div>
                       </div>
                       </div>
                       </div>`;
+                }
+                else if(data[i].is_available < 1){
+                  html+=`
+                  <div class="col-lg-3 container overflow-hidden" id="view_books" style="padding-bottom: 25px;">
+                  <div class="card" style="width: 18rem; background-color:#FF2C2C; border-radius: 25px;">
+                      <img class="card-img-top" src="https://www.pngall.com/wp-content/uploads/4/Book-Now-Button-Transparent.png" alt="Card image cap">
+                      <div class="card-body">
+                          <h4 class="card-title">`+data[i].Writer_Name +` ` +data[i].Writer_Last_Name+`</h4>
+                          <h5 class="card-title" id="displayBookName">`+data[i].Book_Name+`</h5>
+                          <p class="card-text">`+data[i].name +`
+                          <br>`+data[i].Book_price+`KM</p>
+                          <div class="btn-group" role="group">
+                              <button type="button" class="btn btn-secondary books-button" onclick="BookService.get(`+data[i].id+`)">View Info</button>
+                              <button type="button" class="btn btn-warning books-button" onclick="purchasesService.sell(`+data[i].id+`)">Sell</button>
+                              <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Remove</button>
+                          </div>
+                      </div>
+                      </div>
+                      </div>`;
+                }
               }
               $("#view_books").html(html);
             },
@@ -49,8 +71,38 @@ var BookService = {
         });
     },
 
+    remove: function(id){
+      $(".books-button").attr("disabled",true);
+        $.ajax({
+          url: "rest/books/remove/"+id,
+          type: "PUT",
+          beforeSend: function(xhr){
+            xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+          },
+          success: function(result){
+            if(result.error!=null){
+                toastr.error(result.error);
+              }
+              if(result.message!=null){
+                toastr.success(result.message);
+                $('#book-list').html(`<div id="book-list" class="row">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                          <span class="sr-only"></span>
+                        </div>
+                    </div>
+                </div>`);
+                BookService.list();
+              }
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            toastr.error(XMLHttpRequest.responseJSON.message);
+          }
+        })
+    },
+
     get: function(id){
-        $(".books-button").attr("disabled",true);
+      $(".books-button").attr("disabled",true);
         $.ajax({
           url: "rest/books/"+id,
           type: "GET",
@@ -196,11 +248,11 @@ var BookService = {
               <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#searchWriter" style="margin-bottom: 10px"> <i class="bi bi-search"> Search Writer</i></button>
             </div>`;
             for(let i=0;i<data.length;i++){
-      
+              if(data[i].In_inventory >= 1){
                 html+=`
-                <div class="col-lg-3 container overflow-hidden" id="view_books">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="https://www.pngall.com/wp-content/uploads/2018/05/Books-PNG-File.png" alt="Card image cap">
+                <div class="col-lg-3 container overflow-hidden" id="view_books" style="padding-bottom: 25px;">
+                <div class="card" style="width: 18rem; background-color:#86DC3D; border-radius: 25px;">
+                    <img class="card-img-top" src="https://www.pngall.com/wp-content/uploads/4/Book-Now-Button-Transparent.png" alt="Card image cap">
                     <div class="card-body">
                         <h4 class="card-title">`+data[i].Writer_Name +` ` +data[i].Writer_Last_Name+`</h4>
                         <h5 class="card-title" id="displayBookName">`+data[i].Book_Name+`</h5>
@@ -208,11 +260,32 @@ var BookService = {
                         <br>`+data[i].Book_price+`KM</p>
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-secondary books-button" onclick="BookService.get(`+data[i].id+`)">View Info</button>
-                            <button type="button" class="btn btn-warning books-button" onclick="PurchaseService.sell(`+data[i].id+`)">Sell</button>
+                            <button type="button" class="btn btn-warning books-button" onclick="purchasesService.sell(`+data[i].id+`)">Sell</button>
+                            <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Remove</button>
+                        </div>
+                    </div>
+                </div>
+                </div>`;
+              }
+              else if(data[i].In_inventory < 1){
+                html+=`
+                <div class="col-lg-3 container overflow-hidden" id="view_books" style="padding-bottom: 25px;">
+                <div class="card" style="width: 18rem; background-color:#FF2C2C; border-radius: 25px;">
+                    <img class="card-img-top" src="https://www.pngall.com/wp-content/uploads/4/Book-Now-Button-Transparent.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">`+data[i].Writer_Name +` ` +data[i].Writer_Last_Name+`</h4>
+                        <h5 class="card-title" id="displayBookName">`+data[i].Book_Name+`</h5>
+                        <p class="card-text">`+data[i].name +`
+                        <br>`+data[i].Book_price+`KM</p>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-secondary books-button" onclick="BookService.get(`+data[i].id+`)">View Info</button>
+                            <button type="button" class="btn btn-warning books-button" onclick="purchasesService.sell(`+data[i].id+`)">Sell</button>
+                            <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Remove</button>
                         </div>
                     </div>
                     </div>
                     </div>`;
+              }
             }
             $("#view_search_books").html(html);
           },
@@ -240,23 +313,44 @@ var BookService = {
               <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#searchWriter" style="margin-bottom: 10px"> <i class="bi bi-search"> Search Writer</i></button>
             </div>`;
           for(let i=0;i<data.length;i++){
-      
-            html+=`
-            <div class="col-lg-3 container overflow-hidden" id="view_books">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="https://www.pngall.com/wp-content/uploads/2018/05/Books-PNG-File.png" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">`+data[i].Writer_Name +` ` +data[i].Writer_Last_Name+`</h4>
-                    <h5 class="card-title" id="displayBookName">`+data[i].Book_Name+`</h5>
-                    <p class="card-text">`+data[i].name +`
-                    <br>`+data[i].Book_price+`KM</p>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-secondary books-button" onclick="BookService.get(`+data[i].id+`)">View Info</button>
-                        <button type="button" class="btn btn-warning books-button" onclick="PurchaseService.sell(`+data[i].id+`)">Sell</button>
-                    </div>
-                </div>
-                </div>
-                </div>`;
+              if(data[i].In_inventory >= 1){
+                  html+=`
+                  <div class="col-lg-3 container overflow-hidden" id="view_books" style="padding-bottom: 25px;">
+                  <div class="card" style="width: 18rem; background-color:#86DC3D; border-radius: 25px;">
+                      <img class="card-img-top" src="https://www.pngall.com/wp-content/uploads/4/Book-Now-Button-Transparent.png" alt="Card image cap">
+                      <div class="card-body">
+                          <h4 class="card-title">`+data[i].Writer_Name +` ` +data[i].Writer_Last_Name+`</h4>
+                          <h5 class="card-title" id="displayBookName">`+data[i].Book_Name+`</h5>
+                          <p class="card-text">`+data[i].name +`
+                          <br>`+data[i].Book_price+`KM</p>
+                          <div class="btn-group" role="group">
+                              <button type="button" class="btn btn-secondary books-button" onclick="BookService.get(`+data[i].id+`)">View Info</button>
+                              <button type="button" class="btn btn-warning books-button" onclick="purchasesService.sell(`+data[i].id+`)">Sell</button>
+                              <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Remove</button>
+                          </div>
+                      </div>
+                  </div>
+                  </div>`;
+                }
+                else if(data[i].In_inventory < 1){
+                  html+=`
+                  <div class="col-lg-3 container overflow-hidden" id="view_books" style="padding-bottom: 25px;">
+                  <div class="card" style="width: 18rem; background-color:#FF2C2C; border-radius: 25px;">
+                      <img class="card-img-top" src="https://www.pngall.com/wp-content/uploads/4/Book-Now-Button-Transparent.png" alt="Card image cap">
+                      <div class="card-body">
+                          <h4 class="card-title">`+data[i].Writer_Name +` ` +data[i].Writer_Last_Name+`</h4>
+                          <h5 class="card-title" id="displayBookName">`+data[i].Book_Name+`</h5>
+                          <p class="card-text">`+data[i].name +`
+                          <br>`+data[i].Book_price+`KM</p>
+                          <div class="btn-group" role="group">
+                              <button type="button" class="btn btn-secondary books-button" onclick="BookService.get(`+data[i].id+`)">View Info</button>
+                              <button type="button" class="btn btn-warning books-button" onclick="purchasesService.sell(`+data[i].id+`)">Sell</button>
+                              <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Remove</button>
+                          </div>
+                      </div>
+                      </div>
+                      </div>`;
+                }
         }
         $("#view_search_by_writers").html(html);
         },

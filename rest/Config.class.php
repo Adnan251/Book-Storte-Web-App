@@ -3,19 +3,19 @@
 class Config {
 
   public static function DB_HOST(){
-    return Config::get_env("DB_HOST", "db-mysql-fra1-08871-do-user-14046797-0.b.db.ondigitalocean.com");
+    return Config::get_env("DB_HOST", "localhost");
   }
   public static function DB_USERNAME(){
-    return Config::get_env("DB_USERNAME", "doadmin");
+    return Config::get_env("DB_USERNAME", "AdnanDzindo");
   }
   public static function DB_PASSWORD(){
-    return Config::get_env("DB_PASSWORD", "AVNS_mdCgm8ajEtpdCEoYFs1");
+    return Config::get_env("DB_PASSWORD", "SQLAdnan251");
   }
   public static function DB_SCHEME(){
-    return Config::get_env("DB_SCHEME", "defaultdb");
+    return Config::get_env("DB_SCHEME", "bookstore");
   }
   public static function DB_PORT(){
-    return Config::get_env("DB_PORT", "25060");
+    return Config::get_env("DB_PORT", "3306");
   }
   public static function JWT_SECRET(){
     return Config::get_env("JWT_SECRET", "ezcb9s8UcF");
