@@ -18,19 +18,19 @@
 
         public function get_BaW($bookid)
         {
-            return $this->query_unique("SELECT * FROM BooksAndWriters WHERE bookid=:bookid",['bookid'=>$bookid]);
+            return $this->query_unique("SELECT * FROM booksandwriters WHERE bookid=:bookid",['bookid'=>$bookid]);
         }
 
         public function delete_book($bookid)
         {
-            $stm = $this->conn->prepare("DELETE FROM BooksAndWriters WHERE bookid = :bookid");
+            $stm = $this->conn->prepare("DELETE FROM booksandwriters WHERE bookid = :bookid");
             $stm->bindParam(':bookid',$bookid);
             $stm->execute();
         }
 
         public function delete_writer($writerid)
         {
-            $stm = $this->conn->prepare("DELETE FROM BooksAndWriters WHERE writerid = :writerid");
+            $stm = $this->conn->prepare("DELETE FROM booksandwriters WHERE writerid = :writerid");
             $stm->bindParam(':writerid',$writerid);
             $stm->execute();
         }

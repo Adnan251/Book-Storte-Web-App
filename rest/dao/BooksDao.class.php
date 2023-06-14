@@ -43,10 +43,10 @@
         public function get_by_id_with_writer_names($id)
         {
             $stm='SELECT b.id, b.Book_Name, w.Writer_Name, w.Writer_Last_Name, p.name, b.Year_of_publishing, b.Book_price, b.In_inventory, b.is_available
-                    FROM Books b
-                    LEFT OUTER JOIN BooksAndWriters baw ON b.id = baw.bookid
-                    LEFT OUTER JOIN Writers w ON baw.writerid = w.id
-                    JOIN Publishers p ON p.id = b.Publisher
+                    FROM books b
+                    LEFT OUTER JOIN booksandwriters baw ON b.id = baw.bookid
+                    LEFT OUTER JOIN writers w ON baw.writerid = w.id
+                    JOIN publishers p ON p.id = b.Publisher
                     WHERE b.id = :id';
             $result = $this->conn->prepare($stm);
             $result->execute(['id'=>$id]);
@@ -57,10 +57,10 @@
         {
             $name=strtolower($name);
             $stm='SELECT b.id, b.Book_Name, w.Writer_Name, w.Writer_Last_Name, p.name, b.Year_of_publishing, b.Book_price, b.In_inventory, b.is_available
-                    FROM Books b
-                    LEFT OUTER JOIN BooksAndWriters baw ON b.id = baw.bookid
-                    LEFT OUTER JOIN Writers w ON baw.writerid = w.id
-                    JOIN Publishers p ON p.id = b.Publisher
+                    FROM books b
+                    LEFT OUTER JOIN booksandwriters baw ON b.id = baw.bookid
+                    LEFT OUTER JOIN writers w ON baw.writerid = w.id
+                    JOIN publishers p ON p.id = b.Publisher
                     WHERE LOWER(b.Book_Name) LIKE :name OR LOWER(p.name) LIKE :name OR LOWER(CONCAT(w.Writer_Name, " ", w.Writer_Last_Name)) LIKE :name';
             $result= $this->conn->prepare($stm);
             $result->execute(['name' => '%' . $name . '%']);
@@ -76,10 +76,10 @@
                 $last_name=strtolower($last_name);
             }
             $stm='SELECT b.id, b.Book_Name, w.Writer_Name, w.Writer_Last_Name, p.name, b.Year_of_publishing, b.Book_price, b.In_inventory
-                    FROM Books b
-                    LEFT OUTER JOIN BooksAndWriters baw ON b.id = baw.bookid
-                    LEFT OUTER JOIN Writers w ON baw.writerid = w.id
-                    JOIN Publishers p ON p.id = b.Publisher';
+                    FROM books b
+                    LEFT OUTER JOIN booksandwriters baw ON b.id = baw.bookid
+                    LEFT OUTER JOIN writers w ON baw.writerid = w.id
+                    JOIN publishers p ON p.id = b.Publisher';
 
             if($name==null && $last_name!=null){
                 $stm.=" WHERE LOWER(w.Writer_Last_Name) LIKE '%".$last_name."%'";
@@ -99,10 +99,10 @@
         public function find_book($book)
         {
             $stm = "SELECT EXISTS(SELECT b.Book_Name, b.Year_of_publishing, b.Book_price, b.In_inventory  
-                        FROM Books b
-                        LEFT OUTER JOIN BooksAndWriters baw ON b.id = baw.bookid
-                        LEFT OUTER JOIN Writers w ON baw.writerid = w.id 
-                        JOIN Publishers p ON p.id = b.Publisher
+                        FROM books b
+                        LEFT OUTER JOIN booksandwriters baw ON b.id = baw.bookid
+                        LEFT OUTER JOIN writers w ON baw.writerid = w.id 
+                        JOIN publishers p ON p.id = b.Publisher
                         WHERE b.Book_Name = '".$book['Book_Name']."' AND
                             w.Writer_Name = '".$book['Writer_Name']."' AND
                             w.Writer_Last_Name = '".$book['Writer_Last_Name']."' AND

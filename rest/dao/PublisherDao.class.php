@@ -17,6 +17,6 @@
 
         public function get_by_publisher_name($name)
         {
-            return $this->query_unique("SELECT * FROM Publishers WHERE name = :name",['name'=>$name]);
+            return $this->query_unique("SELECT * FROM publishers WHERE name = :name",['name'=>$name]);
         }
     }

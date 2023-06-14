@@ -19,7 +19,7 @@
         public function get_writer_by_names($lastName, $firstName)
         {
           return $this->query_unique("SELECT *
-                                     FROM Writers
+                                     FROM writers
                                      WHERE Writer_Name = :first_name AND Writer_Last_Name = :last_name", ['first_name' => $firstName, 'last_name' => $lastName]);
         }
 }

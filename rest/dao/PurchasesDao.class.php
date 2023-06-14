@@ -19,7 +19,7 @@
         public function get_purchase_and_book_and_user_by_id($id)
         {
             $stmt ="SELECT p.id, b.Book_Name, b.Book_price,p.Time_of_Purchase, p.Date_of_Purchase, u.User_Name, u.User_Last_Name
-                    FROM Purchase p
+                    FROM purchase p
                     JOIN Books b ON b.id = p.BookID
                     JOIN Users u ON p.Sold_By = u.id
                     WHERE p.id=:id";
@@ -31,9 +31,9 @@
         public function get_purchase_and_book_and_user()
         {
             $stmt="SELECT p.id, b.Book_Name, b.Book_price,p.Time_of_Purchase, p.Date_of_Purchase, u.User_Name, u.User_Last_Name
-                    FROM Purchase p
-                    JOIN Books b ON b.id = p.BookID
-                    JOIN Users u ON p.Sold_By = u.id
+                    FROM purchase p
+                    JOIN books b ON b.id = p.BookID
+                    JOIN users u ON p.Sold_By = u.id
                     ORDER BY p.id ASC";
             $result=$this->conn->prepare($stmt);
             $result->execute();
