@@ -108,7 +108,6 @@ class BooksDao extends BaseDao
                             w.Writer_Last_Name = '".$book['Writer_Last_Name']."' AND
                             p.name = '".$book['name']."' AND
                             b.Year_of_publishing = '".$book['Year_of_publishing']."' AND
-                            b.Book_price BETWEEN ".$book['Book_price']-0.01." AND ".$book['Book_price']." AND
                             b.In_inventory = ".$book['In_inventory']."
                         ) as found";
         $result = $this->conn->prepare($stm);
