@@ -4,8 +4,7 @@
  *      @OA\Response(response=200,description="List of publishers")
  * )
  */
-Flight::route('GET /writers',function()
-{
+Flight::route('GET /writers', function () {
     Flight::json(Flight::writersService()->get_all());
 });
 
@@ -15,8 +14,7 @@ Flight::route('GET /writers',function()
  *     @OA\Response(response="200", description="Fetch individual publisher")
  * )
  */
-Flight::route('GET /writers/@id',function($id)
-{
+Flight::route('GET /writers/@id', function ($id) {
     Flight::json(Flight::writersService()->get_by_id($id));
 });
 
@@ -48,8 +46,7 @@ Flight::route('GET /writers/@id',function($id)
 *     )
 * )
 */
-Flight::route('POST /writers', function()
-{
+Flight::route('POST /writers', function () {
     $request=Flight::request();
     Flight::writersService()->add($request->data->getData());
     Flight::json(['message' => 'updated']);
@@ -84,10 +81,8 @@ Flight::route('POST /writers', function()
 *     )
 * )
 */
-Flight::route('PUT /writers/@id',function($id)
-{
+Flight::route('PUT /writers/@id', function ($id) {
     $request=Flight::request();
-    Flight::writersService()->update($request->data->getData(),$id);
+    Flight::writersService()->update($request->data->getData(), $id);
     Flight::json(['message' => 'updated']);
 });
-?>

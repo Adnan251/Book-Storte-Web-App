@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @OA\Info(title="Our APP API Specs", version="0.2", 
+ * @OA\Info(title="Our APP API Specs", version="0.2",
  * @OA\Contact(email="adnan.dzindo@stu.ibu.edu.ba", name="Adnan Džindo"),
  * @OA\Contact(email="dzeneta.dzananovic@gmail.com", name="Dzeneta Dzananovic"),
  * )

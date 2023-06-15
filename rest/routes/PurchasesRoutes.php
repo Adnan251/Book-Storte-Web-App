@@ -4,8 +4,7 @@
  *      @OA\Response(response=200,description="List of purchases")
  * )
  */
-Flight::route('GET /purchases',function()
-{
+Flight::route('GET /purchases', function () {
     Flight::json(Flight::purchasesService()->get_purchase_and_book_and_user());
 });
 
@@ -15,8 +14,7 @@ Flight::route('GET /purchases',function()
  *     @OA\Response(response="200", description="Fetch individual purchase")
  * )
  */
-Flight::route('GET /purchases/@id',function($id)
-{
+Flight::route('GET /purchases/@id', function ($id) {
     Flight::json(Flight::purchasesService()->get_purchase_and_book_and_user_by_id($id));
 });
 
@@ -49,11 +47,10 @@ Flight::route('GET /purchases/@id',function($id)
 *     )
 * )
 */
-Flight::route('POST /purchases', function()
-{
+Flight::route('POST /purchases', function () {
     $request=Flight::request();
     $purchase = Flight::purchasesService()->add_purchase($request->data->getData());
-    if($purchase == null){
+    if($purchase == null) {
         Flight::json(['error' => 'The inventory of chosen book is empty!']);
     } else {
         Flight::json(['message' => 'Sold!']);

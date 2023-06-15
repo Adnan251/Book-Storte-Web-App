@@ -4,7 +4,7 @@
  *      @OA\Response(response=200,description="List of books")
  * )
  */
-Flight::route('GET /books',function(){
+Flight::route('GET /books', function () {
     Flight::json(Flight::booksService()->get_books_with_writer_names());
 });
 
@@ -14,7 +14,7 @@ Flight::route('GET /books',function(){
  *     @OA\Response(response="200", description="Fetch individual book")
  * )
  */
-Flight::route('GET /books/@id',function($id){
+Flight::route('GET /books/@id', function ($id) {
     Flight::json(Flight::booksService()->get_by_id_with_writer_names($id));
 });
 
@@ -25,9 +25,9 @@ Flight::route('GET /books/@id',function($id){
  *     @OA\Response(response="200", description="Success")
  * )
  */
-Flight::route('PUT /books/remove/@id', function($id){
+Flight::route('PUT /books/remove/@id', function ($id) {
     $book = Flight::booksService()->update_the_books($id);
-    if($book==null){
+    if($book==null) {
         Flight::json(["error"=>"Failed!"]);
     } else {
         Flight::json(['message' => 'Updated!']);
@@ -40,7 +40,7 @@ Flight::route('PUT /books/remove/@id', function($id){
  *     @OA\Response(response="200", description="Success")
  * )
  */
-Flight::route('GET /books/search/@name', function($name){
+Flight::route('GET /books/search/@name', function ($name) {
     Flight::json(Flight::booksService()->search_book($name));
 });
 
@@ -52,10 +52,10 @@ Flight::route('GET /books/search/@name', function($name){
  *         @OA\Response( response=200, description="List of pets.")
  * )
  */
-Flight::route('GET /search_books/writer', function(){
+Flight::route('GET /search_books/writer', function () {
     $name = Flight::query('name');
     $lastName = Flight::query('lastname');
-    Flight::json(Flight::booksService()->get_book_by_writer($name,$lastName));
+    Flight::json(Flight::booksService()->get_book_by_writer($name, $lastName));
 });
 
 /**
@@ -91,10 +91,10 @@ Flight::route('GET /search_books/writer', function(){
 *     )
 * )
 */
-Flight::route('POST /books', function(){
+Flight::route('POST /books', function () {
     $data=Flight::request()->data->getData();
     $book = Flight::booksService()->add_book_and_writer($data);
-    if($book==null){
+    if($book==null) {
         Flight::json(["error"=>"Cannot add an existing book!"]);
     } else {
         Flight::json(['message' => 'Book added']);
@@ -135,10 +135,10 @@ Flight::route('POST /books', function(){
 *     )
 * )
 */
-Flight::route('PUT /books/@id',function($id){
+Flight::route('PUT /books/@id', function ($id) {
     $request=Flight::request();
-    $book = Flight::booksService()->update_book_and_writer($request->data->getData(),$id);
-    if($book==null){
+    $book = Flight::booksService()->update_book_and_writer($request->data->getData(), $id);
+    if($book==null) {
         Flight::json(["error"=>"Cannot add an existing book!"]);
     } else {
         Flight::json(['message' => 'updated']);
