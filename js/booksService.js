@@ -110,6 +110,7 @@ var BookService = {
             xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
           },
           success: function(data){
+            data = data[0];
             console.log(data);
             $("#id").val(data.id);
             $("#bookName").val(data.Book_Name);
@@ -248,7 +249,7 @@ var BookService = {
               <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#searchWriter" style="margin-bottom: 10px"> <i class="bi bi-search"> Search Writer</i></button>
             </div>`;
             for(let i=0;i<data.length;i++){
-              if(data[i].In_inventory >= 1){
+              if(data[i].is_available >= 1){
                 html+=`
                 <div class="col-lg-3 container overflow-hidden" id="view_books" style="padding-bottom: 25px;">
                 <div class="card" style="width: 18rem; background-color:#86DC3D; border-radius: 25px;">
@@ -267,7 +268,7 @@ var BookService = {
                 </div>
                 </div>`;
               }
-              else if(data[i].In_inventory < 1){
+              else if(data[i].is_available < 1){
                 html+=`
                 <div class="col-lg-3 container overflow-hidden" id="view_books" style="padding-bottom: 25px;">
                 <div class="card" style="width: 18rem; background-color:#FF2C2C; border-radius: 25px;">
@@ -313,7 +314,7 @@ var BookService = {
               <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#searchWriter" style="margin-bottom: 10px"> <i class="bi bi-search"> Search Writer</i></button>
             </div>`;
           for(let i=0;i<data.length;i++){
-              if(data[i].In_inventory >= 1){
+              if(data[i].is_available >= 1){
                   html+=`
                   <div class="col-lg-3 container overflow-hidden" id="view_books" style="padding-bottom: 25px;">
                   <div class="card" style="width: 18rem; background-color:#86DC3D; border-radius: 25px;">
@@ -332,7 +333,7 @@ var BookService = {
                   </div>
                   </div>`;
                 }
-                else if(data[i].In_inventory < 1){
+                else if(data[i].is_available < 1){
                   html+=`
                   <div class="col-lg-3 container overflow-hidden" id="view_books" style="padding-bottom: 25px;">
                   <div class="card" style="width: 18rem; background-color:#FF2C2C; border-radius: 25px;">
