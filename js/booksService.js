@@ -66,7 +66,6 @@ var BookService = {
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
               toastr.error(XMLHttpRequest.responseJSON.message);
-              usersService.logout();
             }
         });
     },

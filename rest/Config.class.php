@@ -1,5 +1,4 @@
 <?php
-
 class Config
 {
     public static function DB_HOST()

@@ -23,7 +23,7 @@ class BooksDao extends BaseDao
     {
         $stm='SELECT b.id, b.Book_Name,w.Writer_Name ,w.Writer_Last_Name, p.name, b.Year_of_publishing, b.Book_price, b.In_inventory, b.is_available
                     FROM books b
-                    LEFT OUTER JOIN booksanderiters baw ON b.id = baw.bookid
+                    LEFT OUTER JOIN booksandwriters baw ON b.id = baw.bookid
                     LEFT OUTER JOIN writers w ON baw.writerid = w.id
                     JOIN publishers p ON p.id = b.Publisher
                     ORDER BY b.id';
@@ -35,7 +35,7 @@ class BooksDao extends BaseDao
     public function get_book_by_name($bookName)
     {
         $stm="SELECT b.id, b.Book_Name, b.Year_of_publishing, b.Book_price, b.In_inventory ";
-        $stm.="FROM Books b ";
+        $stm.="FROM books b ";
         $stm.="WHERE Book_Name = :book_name";
         $result=$this->conn->prepare($stm);
         $result->execute(['book_name'=>$bookName]);

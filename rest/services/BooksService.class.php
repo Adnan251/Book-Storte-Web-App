@@ -22,8 +22,7 @@ class BooksService extends BaseService
 
     public function get_books_with_writer_names()
     {
-        $data = $this->dao->get_books_with_writer_names();
-        return $data;
+        return $this->dao->get_books_with_writer_names();
     }
 
     public function get_by_id_with_writer_names($id)
