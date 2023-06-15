@@ -306,14 +306,15 @@ var BookService = {
           xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
         },
         success: function(data){
+          console.log(data);
           $("#searchWriter").modal("hide");
           SPApp.handleSectionVisibility("#view_search_by_writers");
           var html=`<div class="book-change" class="row">
-              <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addElement" style="margin-bottom: 10px"> Add Book </button>
+              <button class="btn btn btn-warning" data-bs-toggle="modal" data-bs-target="#addElement" style="margin-bottom: 10px"> Add Book </button>
               <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#searchWriter" style="margin-bottom: 10px"> <i class="bi bi-search"> Search Writer</i></button>
             </div>`;
-          for(let i=0;i<data.length;i++){
-              if(data[i].is_available >= 1){
+              for(let i=0;i<data.length;i++){
+                if(data[i].is_available >= 1){
                   html+=`
                   <div class="col-lg-3 container overflow-hidden" id="view_books" style="padding-bottom: 25px;">
                   <div class="card" style="width: 18rem; background-color:#86DC3D; border-radius: 25px;">
@@ -329,8 +330,8 @@ var BookService = {
                               <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Remove</button>
                           </div>
                       </div>
-                  </div>
-                  </div>`;
+                      </div>
+                      </div>`;
                 }
                 else if(data[i].is_available < 1){
                   html+=`
@@ -351,7 +352,7 @@ var BookService = {
                       </div>
                       </div>`;
                 }
-        }
+              }
         $("#view_search_by_writers").html(html);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {

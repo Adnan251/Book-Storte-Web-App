@@ -63,7 +63,7 @@ class BooksDao extends BaseDao
                     LEFT OUTER JOIN booksandwriters baw ON b.id = baw.bookid
                     LEFT OUTER JOIN writers w ON baw.writerid = w.id
                     JOIN publishers p ON p.id = b.Publisher
-                    WHERE LOWER(b.Book_Name) LIKE :name OR LOWER(p.name) LIKE :name OR LOWER(CONCAT(w.Writer_Name, " ", w.Writer_Last_Name)) LIKE :name';
+                    WHERE LOWER(b.Book_Name) LIKE :name OR LOWER(p.name) LIKE :name OR LOWER(CONCAT(w.Writer_Name, \' \', w.Writer_Last_Name)) LIKE :name';
         $result= $this->conn->prepare($stm);
         $result->execute(['name' => '%' . $name . '%']);
         return $result->fetchAll(PDO::FETCH_ASSOC);
@@ -77,7 +77,7 @@ class BooksDao extends BaseDao
         if($last_name!=null) {
             $last_name=strtolower($last_name);
         }
-        $stm='SELECT b.id, b.Book_Name, w.Writer_Name, w.Writer_Last_Name, p.name, b.Year_of_publishing, b.Book_price, b.In_inventory
+        $stm='SELECT b.id, b.Book_Name, w.Writer_Name, w.Writer_Last_Name, p.name, b.Year_of_publishing, b.Book_price, b.In_inventory, b.is_available
                     FROM books b
                     LEFT OUTER JOIN booksandwriters baw ON b.id = baw.bookid
                     LEFT OUTER JOIN writers w ON baw.writerid = w.id
