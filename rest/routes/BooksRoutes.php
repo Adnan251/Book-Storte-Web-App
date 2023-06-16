@@ -20,8 +20,8 @@ Flight::route('GET /books/@id', function ($id) {
 
 
 /**
- * @OA\Get(path="/books/search/{name}", tags={"books"}, summary="Returns a number of books that match the given paramater ", security={{"ApiKeyAuth": {}}},
- *     @OA\Parameter(in="path", name="name", description="Searches a book through its name"),
+ * @OA\Get(path="/books/remove/{id}", tags={"books"}, summary="Returns a number of books that match the given paramater ", security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(in="path", name="id", description="Searches a book through its name"),
  *     @OA\Response(response="200", description="Success")
  * )
  */

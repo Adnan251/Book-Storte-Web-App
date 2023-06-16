@@ -55,7 +55,7 @@ var BookService = {
                           <div class="btn-group" role="group">
                               <button type="button" class="btn btn-secondary books-button" onclick="BookService.get(`+data[i].id+`)">View Info</button>
                               <button type="button" class="btn btn-warning books-button" onclick="purchasesService.sell(`+data[i].id+`)">Sell</button>
-                              <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Remove</button>
+                              <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Bring Back</button>
                           </div>
                       </div>
                       </div>
@@ -280,7 +280,7 @@ var BookService = {
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-secondary books-button" onclick="BookService.get(`+data[i].id+`)">View Info</button>
                             <button type="button" class="btn btn-warning books-button" onclick="purchasesService.sell(`+data[i].id+`)">Sell</button>
-                            <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Remove</button>
+                            <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Bring Back</button>
                         </div>
                     </div>
                     </div>
@@ -346,7 +346,7 @@ var BookService = {
                           <div class="btn-group" role="group">
                               <button type="button" class="btn btn-secondary books-button" onclick="BookService.get(`+data[i].id+`)">View Info</button>
                               <button type="button" class="btn btn-warning books-button" onclick="purchasesService.sell(`+data[i].id+`)">Sell</button>
-                              <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Remove</button>
+                              <button type="button" class="btn btn-warning books-button" style="background-color:#23aef2;" onclick="BookService.remove(`+data[i].id+`)">Bring Back</button>
                           </div>
                       </div>
                       </div>
